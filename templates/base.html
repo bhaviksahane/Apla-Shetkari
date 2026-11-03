@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Apla Shetkari – AI Helper for Farmers{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/logo.svg') }}">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <!-- Brand Logo -->
+            <a href="{{ url_for('index') }}" class="navbar-brand">
+                <div class="brand-icon-wrapper">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <div class="brand-text-group">
+                    <span class="brand-title">Apla Shetkari</span>
+                    <span class="brand-tagline-sub">आपला शेतकरी • AI Krishi Mitr</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}" class="nav-link {% if request.endpoint == 'index' %}active{% endif %}"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="{{ url_for('chat') }}" class="nav-link {% if request.endpoint == 'chat' %}active{% endif %}"><i class="fas fa-robot"></i> AI Assistant</a></li>
+                <li><a href="{{ url_for('crop_recommendation') }}" class="nav-link {% if request.endpoint == 'crop_recommendation' %}active{% endif %}"><i class="fas fa-wheat-awn"></i> Crop Recommendations</a></li>
+                <li><a href="{{ url_for('about') }}" class="nav-link {% if request.endpoint == 'about' %}active{% endif %}"><i class="fas fa-info-circle"></i> About Us</a></li>
+            </ul>
+
+            <!-- Navigation Actions & Auth -->
+            <div class="nav-actions">
+                <!-- Multilingual Switcher -->
+                <div class="lang-selector-nav">
+                    <i class="fas fa-globe"></i>
+                    <select class="lang-selector-element" aria-label="Select Language">
+                        <option value="en">English</option>
+                        <option value="hi">हिंदी (Hindi)</option>
+                        <option value="mr">मराठी (Marathi)</option>
+                    </select>
+                </div>
+
+                <!-- Authentication Pill or Buttons -->
+                {% if current_user %}
+                    <a href="{{ url_for('dashboard') }}" class="nav-user-pill" title="View Dashboard">
+                        <div class="nav-user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span>{{ current_user.full_name.split()[0] }}</span>
+                    </a>
+                    <a href="{{ url_for('logout') }}" class="btn btn-secondary btn-sm" title="Log Out">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="btn btn-secondary btn-sm">Login</a>
+                    <a href="{{ url_for('register') }}" class="btn btn-primary btn-sm">Register</a>
+                {% endif %}
+
+                <!-- Mobile Hamburger Toggle -->
+                <button class="nav-mobile-toggle" aria-label="Toggle Navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Global API Key Notice (if not yet configured) -->
+    {% if not has_gemini_key %}
+    <div style="background: #fffbeb; border-bottom: 1px solid #fde68a; padding: 10px 0; font-size: 13.5px; color: #92400e;">
+        <div class="container" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-key" style="color: #f59e0b;"></i>
+                <span><strong>Setup Notice:</strong> Add your free Google Gemini API Key in the <code>.env</code> file to enable real-time AI crop advisory & chatbot.</span>
+            </div>
+            <a href="https://aistudio.google.com/" target="_blank" rel="noopener" style="font-weight: 700; color: #b45309; text-decoration: underline;">
+                Get Free API Key <i class="fas fa-external-link-alt" style="font-size: 11px;"></i>
+            </a>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Flash Alerts Container -->
+    <div class="container alert-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        <div class="alert-content">
+                            {% if category == 'success' %}
+                                <i class="fas fa-check-circle"></i>
+                            {% elif category == 'danger' %}
+                                <i class="fas fa-exclamation-circle"></i>
+                            {% elif category == 'warning' %}
+                                <i class="fas fa-exclamation-triangle"></i>
+                            {% else %}
+                                <i class="fas fa-info-circle"></i>
+                            {% endif %}
+                            <span>{{ message }}</span>
+                        </div>
+                        <button class="alert-close" aria-label="Close alert">&times;</button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Main Dynamic Body Content -->
+    <main style="flex-grow: 1;">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Professional Agriculture Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Brand Info -->
+                <div class="footer-brand">
+                    <h3><i class="fas fa-seedling" style="color: var(--harvest-gold);"></i> Apla Shetkari</h3>
+                    <p>
+                        "Smart Farming, Better Future." – An AI-powered agricultural advisory platform dedicated to empowering Indian farmers with scientific guidance, regional crop recommendations, and instant problem-solving.
+                    </p>
+                    <p style="font-size: 13px; color: #95c7a6;">
+                        समृद्ध शेतकरी, प्रगतीशील भारत • Supported languages: English, हिन्दी, मराठी.
+                    </p>
+                </div>
+
+                <!-- Navigation Quick Links -->
+                <div>
+                    <h4 class="footer-title">Quick Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('index') }}"><i class="fas fa-angle-right"></i> Home</a></li>
+                        <li><a href="{{ url_for('chat') }}"><i class="fas fa-angle-right"></i> AI Assistant</a></li>
+                        <li><a href="{{ url_for('crop_recommendation') }}"><i class="fas fa-angle-right"></i> Crop Recommendations</a></li>
+                        <li><a href="{{ url_for('about') }}"><i class="fas fa-angle-right"></i> About Us</a></li>
+                        <li><a href="{{ url_for('dashboard') }}"><i class="fas fa-angle-right"></i> Farmer Dashboard</a></li>
+                    </ul>
+                </div>
+
+                <!-- Farming Modules -->
+                <div>
+                    <h4 class="footer-title">Farming Advisory</h4>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('crop_recommendation') }}"><i class="fas fa-angle-right"></i> Soil & Season Analysis</a></li>
+                        <li><a href="{{ url_for('chat') }}"><i class="fas fa-angle-right"></i> Pest & Disease Diagnosis</a></li>
+                        <li><a href="{{ url_for('chat') }}"><i class="fas fa-angle-right"></i> Fertilizer Schedules</a></li>
+                        <li><a href="{{ url_for('chat') }}"><i class="fas fa-angle-right"></i> Drip & Water Management</a></li>
+                        <li><a href="{{ url_for('chat') }}"><i class="fas fa-angle-right"></i> PM-Kisan Schemes</a></li>
+                    </ul>
+                </div>
+
+                <!-- Emergency Helpline Card -->
+                <div>
+                    <h4 class="footer-title">Government Helpline</h4>
+                    <div class="footer-kisan-card">
+                        <h5><i class="fas fa-phone-volume" style="color: var(--harvest-gold);"></i> Kisan Call Center (Toll Free)</h5>
+                        <p>Available 24x7 for urgent agricultural queries:</p>
+                        <div class="kisan-toll-free">1800-180-1551</div>
+                        <p style="margin-top: 8px; font-size: 11.5px; color: #b7dfc5;">
+                            Ministry of Agriculture & Farmers Welfare, Govt of India.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="footer-bottom">
+                <div>
+                    &copy; 2025 Apla Shetkari (आपला शेतकरी). Developed with ❤️ for Indian Farmers.
+                </div>
+                <div>
+                    <span>Clean Tech: Python Flask • SQLite • Google Gemini AI</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main Application Scripts -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

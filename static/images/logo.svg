@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2d6a4f;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1b4332;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e9c46a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f4a261;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" rx="22" fill="url(#grad1)"/>
+  <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+  <!-- Sprout Stem -->
+  <path d="M50 78 C50 62 48 46 52 32" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+  <!-- Left Leaf -->
+  <path d="M50 56 C32 54 26 40 32 30 C44 32 49 46 50 56 Z" fill="url(#goldGrad)"/>
+  <!-- Right Leaf -->
+  <path d="M51 44 C68 40 74 26 66 18 C54 22 50 36 51 44 Z" fill="#74c69d"/>
+  <!-- Sun / Sparkle -->
+  <circle cx="70" cy="28" r="4.5" fill="#f4a261"/>
+</svg>

@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% block title %}Farmer Registration – Apla Shetkari{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card" style="max-width: 580px;">
+        <div class="auth-header">
+            <div class="auth-icon">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <h1 class="auth-title">Create Farmer Account</h1>
+            <p class="auth-subtitle">नवीन शेतकरी नोंदणी • Join Apla Shetkari for Personalized Farming Advisory</p>
+        </div>
+
+        <form method="POST" action="{{ url_for('register') }}">
+            <!-- Full Name -->
+            <div class="form-group">
+                <label class="form-label" for="full_name">
+                    <i class="fas fa-user" style="color: var(--primary-main);"></i> Full Name (पूर्ण नाव) *
+                </label>
+                <input 
+                    type="text" 
+                    name="full_name" 
+                    id="full_name" 
+                    class="form-control" 
+                    placeholder="e.g. Ramesh Patil, Sunita Sharma" 
+                    value="{{ form_data.full_name or '' }}" 
+                    required 
+                    autofocus
+                >
+            </div>
+
+            <div class="form-grid-2">
+                <!-- Mobile Number -->
+                <div class="form-group">
+                    <label class="form-label" for="mobile">
+                        <i class="fas fa-phone" style="color: var(--primary-main);"></i> Mobile Number (मोबाईल) *
+                    </label>
+                    <input 
+                        type="tel" 
+                        name="mobile" 
+                        id="mobile" 
+                        class="form-control" 
+                        placeholder="10-digit mobile number" 
+                        pattern="[0-9]{10}" 
+                        value="{{ form_data.mobile or '' }}" 
+                        required
+                    >
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label class="form-label" for="email">
+                        <i class="fas fa-envelope" style="color: var(--primary-main);"></i> Email Address (ईमेल) *
+                    </label>
+                    <input 
+                        type="email" 
+                        name="email" 
+                        id="email" 
+                        class="form-control" 
+                        placeholder="yourname@gmail.com" 
+                        value="{{ form_data.email or '' }}" 
+                        required
+                    >
+                </div>
+            </div>
+
+            <div class="form-grid-2">
+                <!-- State Selection -->
+                <div class="form-group">
+                    <label class="form-label" for="state">
+                        <i class="fas fa-map-marked-alt" style="color: var(--primary-main);"></i> State (राज्य) *
+                    </label>
+                    <select name="state" id="state" class="form-control" required>
+                        <option value="">-- Select State --</option>
+                        <option value="Maharashtra" {% if form_data.state == 'Maharashtra' or not form_data.state %}selected{% endif %}>Maharashtra (महाराष्ट्र)</option>
+                        <option value="Madhya Pradesh" {% if form_data.state == 'Madhya Pradesh' %}selected{% endif %}>Madhya Pradesh (मध्य प्रदेश)</option>
+                        <option value="Gujarat" {% if form_data.state == 'Gujarat' %}selected{% endif %}>Gujarat (गुजरात)</option>
+                        <option value="Karnataka" {% if form_data.state == 'Karnataka' %}selected{% endif %}>Karnataka (कर्नाटक)</option>
+                        <option value="Punjab" {% if form_data.state == 'Punjab' %}selected{% endif %}>Punjab (पंजाब)</option>
+                        <option value="Haryana" {% if form_data.state == 'Haryana' %}selected{% endif %}>Haryana (हरियाणा)</option>
+                        <option value="Uttar Pradesh" {% if form_data.state == 'Uttar Pradesh' %}selected{% endif %}>Uttar Pradesh (उत्तर प्रदेश)</option>
+                        <option value="Rajasthan" {% if form_data.state == 'Rajasthan' %}selected{% endif %}>Rajasthan (राजस्थान)</option>
+                        <option value="Andhra Pradesh" {% if form_data.state == 'Andhra Pradesh' %}selected{% endif %}>Andhra Pradesh (आंध्र प्रदेश)</option>
+                        <option value="Telangana" {% if form_data.state == 'Telangana' %}selected{% endif %}>Telangana (तेलंगाना)</option>
+                        <option value="Tamil Nadu" {% if form_data.state == 'Tamil Nadu' %}selected{% endif %}>Tamil Nadu (तमिलनाडु)</option>
+                        <option value="Bihar" {% if form_data.state == 'Bihar' %}selected{% endif %}>Bihar (बिहार)</option>
+                    </select>
+                </div>
+
+                <!-- District -->
+                <div class="form-group">
+                    <label class="form-label" for="district">
+                        <i class="fas fa-city" style="color: var(--primary-main);"></i> District (जिल्हा) *
+                    </label>
+                    <input 
+                        type="text" 
+                        name="district" 
+                        id="district" 
+                        class="form-control" 
+                        placeholder="e.g. Pune, Nashik, Kolhapur" 
+                        value="{{ form_data.district or '' }}" 
+                        required
+                    >
+                </div>
+            </div>
+
+            <div class="form-grid-2">
+                <!-- Password -->
+                <div class="form-group">
+                    <label class="form-label" for="password">
+                        <i class="fas fa-lock" style="color: var(--primary-main);"></i> Password (पासवर्ड) *
+                    </label>
+                    <div class="password-input-group">
+                        <input 
+                            type="password" 
+                            name="password" 
+                            id="password" 
+                            class="form-control" 
+                            placeholder="At least 6 characters" 
+                            minlength="6" 
+                            required
+                        >
+                        <button type="button" class="password-toggle-btn" aria-label="Toggle password visibility">
+                            <i class="far fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="form-group">
+                    <label class="form-label" for="confirm_password">
+                        <i class="fas fa-check-double" style="color: var(--primary-main);"></i> Confirm Password *
+                    </label>
+                    <input 
+                        type="password" 
+                        name="confirm_password" 
+                        id="confirm_password" 
+                        class="form-control" 
+                        placeholder="Re-type password" 
+                        minlength="6" 
+                        required
+                    >
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div style="margin-top: 24px;">
+                <button type="submit" class="btn btn-primary btn-block btn-lg">
+                    <i class="fas fa-user-check"></i> Register Free Account
+                </button>
+            </div>
+        </form>
+
+        <!-- Switch to Login -->
+        <div style="text-align: center; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border-color); font-size: 14.5px;">
+            <p>
+                Already have an account? 
+                <a href="{{ url_for('login') }}" style="font-weight: 700; color: var(--primary-main); text-decoration: underline;">
+                    Login here (लॉगिन करा)
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

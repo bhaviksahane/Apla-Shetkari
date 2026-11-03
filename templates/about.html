@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us – Apla Shetkari AI{% endblock %}
+
+{% block content %}
+<div class="section" style="padding-top: 40px;">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="section-header">
+            <span class="section-tag">Our Mission & Purpose</span>
+            <h1 class="section-title">About Apla Shetkari</h1>
+            <p class="section-description">
+                "Smart Farming, Better Future." – Bridging the gap between cutting-edge agricultural artificial intelligence and India's grassroots farming community.
+            </p>
+        </div>
+
+        <!-- Vision & Background Grid -->
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; margin-bottom: 60px; align-items: center;">
+            <div>
+                <h3 style="font-size: 24px; color: var(--primary-dark); margin-bottom: 14px;">
+                    <i class="fas fa-heart" style="color: var(--harvest-amber);"></i> Dedicated to Indian Farmers
+                </h3>
+                <p style="font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px;">
+                    Agriculture is the backbone of India's economy, supporting over 50% of the country's workforce. Yet, smallholder farmers face monumental challenges: irregular monsoon rainfall, volatile commodity prices, evolving pest resistance, and misleading chemical recommendations that increase input costs without guaranteeing yields.
+                </p>
+                <p style="font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px;">
+                    <strong>Apla Shetkari (आपला शेतकरी)</strong> was designed to serve as a reliable, honest, and scientifically grounded virtual Krishi extension officer. Accessible directly from any smartphone or computer in Marathi, Hindi, and English, it puts the combined wisdom of agricultural agronomy right into the farmer's hands.
+                </p>
+                <div style="background: var(--primary-subtle); border-left: 4px solid var(--primary-main); padding: 16px 20px; border-radius: var(--radius-sm); font-size: 14px; color: var(--primary-dark);">
+                    <strong>Key Philosophy:</strong> Never invent untested chemical dosages; prioritize Integrated Pest Management (IPM), soil testing, and balanced nutrition, and advise physical visits to local Krishi Vigyan Kendras (KVK) for epidemic situations.
+                </div>
+            </div>
+
+            <div>
+                <div style="background: #ffffff; border: 1.5px solid var(--border-color); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-md);">
+                    <h4 style="font-size: 20px; color: var(--primary-dark); margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-bullseye" style="color: var(--primary-main);"></i> Core Project Goals
+                    </h4>
+                    <div style="display: flex; flex-direction: column; gap: 18px;">
+                        <div style="display: flex; gap: 14px; align-items: flex-start;">
+                            <div style="width: 38px; height: 38px; border-radius: 50%; background: var(--primary-mint); color: var(--primary-dark); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;">
+                                <i class="fas fa-language"></i>
+                            </div>
+                            <div>
+                                <h5 style="font-size: 15px; margin-bottom: 3px;">Language Democratization</h5>
+                                <p style="font-size: 13px; color: var(--text-muted);">Provide guidance in regional languages (मराठी, हिंदी, English) with voice recognition for effortless interaction.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 14px; align-items: flex-start;">
+                            <div style="width: 38px; height: 38px; border-radius: 50%; background: var(--primary-mint); color: var(--primary-dark); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;">
+                                <i class="fas fa-map-location-dot"></i>
+                            </div>
+                            <div>
+                                <h5 style="font-size: 15px; margin-bottom: 3px;">Micro-Climate Adaptation</h5>
+                                <p style="font-size: 13px; color: var(--text-muted);">Crop recommendations customized to Indian states, soil types (Black cotton, Alluvial, Red), and water availability.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 14px; align-items: flex-start;">
+                            <div style="width: 38px; height: 38px; border-radius: 50%; background: var(--primary-mint); color: var(--primary-dark); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;">
+                                <i class="fas fa-hand-holding-dollar"></i>
+                            </div>
+                            <div>
+                                <h5 style="font-size: 15px; margin-bottom: 3px;">Input Cost Reduction</h5>
+                                <p style="font-size: 13px; color: var(--text-muted);">Help farmers avoid unnecessary fertilizer overuse and unneeded pesticide sprays through precision advice.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technology Stack Cards -->
+        <div style="margin-bottom: 60px;">
+            <div class="section-header" style="margin-bottom: 36px;">
+                <span class="section-tag">Architecture & Engineering</span>
+                <h2 class="section-title">Technology Stack</h2>
+                <p class="section-description">
+                    Built strictly adhering to clean, production-grade web technologies without heavy client-side frameworks.
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <!-- Python Flask Backend -->
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <h3 class="feature-card-title">Python & Flask Framework</h3>
+                    <p class="feature-card-desc">
+                        Lightweight, modular backend handling authentication, parameterized SQL queries, secure sessions, rate limiting, and API proxying.
+                    </p>
+                </div>
+
+                <!-- SQLite Database -->
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="feature-card-title">SQLite Database</h3>
+                    <p class="feature-card-desc">
+                        Relational storage tracking users, encrypted credentials, conversation histories, and saved crop recommendation analyses.
+                    </p>
+                </div>
+
+                <!-- Google Gemini AI -->
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="feature-card-title">Google Gemini AI Engine</h3>
+                    <p class="feature-card-desc">
+                        State-of-the-art LLM fine-conditioned with strict Indian agronomic guidelines for safe, realistic, and multilingual responses.
+                    </p>
+                </div>
+
+                <!-- HTML5, CSS3, JS -->
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i class="fab fa-html5"></i>
+                    </div>
+                    <h3 class="feature-card-title">HTML5, CSS3 & JavaScript</h3>
+                    <p class="feature-card-desc">
+                        Handcrafted responsive interface, mobile drawer navigation, markdown parsing, and Web Speech API voice recognition.
+                    </p>
+                </div>
+
+                <!-- Security & Best Practices -->
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i class="fas fa-shield-halved"></i>
+                    </div>
+                    <h3 class="feature-card-title">Security & Integrity</h3>
+                    <p class="feature-card-desc">
+                        Werkzeug password hashing, environment variable isolation, input validation, and SQL injection prevention.
+                    </p>
+                </div>
+
+                <!-- Agriculture Alignment -->
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i class="fas fa-wheat-awn"></i>
+                    </div>
+                    <h3 class="feature-card-title">Agronomy Alignment</h3>
+                    <p class="feature-card-desc">
+                        System prompts formulated following ICAR and Krishi Vigyan Kendra extension recommendations for Indian farming realities.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Academic Presentation & Project Details -->
+        <div style="background: linear-gradient(135deg, #f1f7f2, #ffffff); border: 1.5px solid var(--border-color); border-radius: var(--radius-lg); padding: 36px; text-align: center;">
+            <div style="max-width: 720px; margin: 0 auto;">
+                <h3 style="font-size: 24px; color: var(--primary-dark); margin-bottom: 12px;">
+                    College Project & Technical Demonstration
+                </h3>
+                <p style="font-size: 15px; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px;">
+                    This project demonstrates full-stack software development, RESTful architectural design, relational database modeling, and real-world generative AI integration tailored to solve societal and agricultural challenges.
+                </p>
+                <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+                    <a href="{{ url_for('chat') }}" class="btn btn-primary">
+                        <i class="fas fa-robot"></i> Test the AI Chatbot
+                    </a>
+                    <a href="{{ url_for('crop_recommendation') }}" class="btn btn-secondary">
+                        <i class="fas fa-seedling"></i> Test Crop Advisory
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

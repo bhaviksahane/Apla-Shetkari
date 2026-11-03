@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+
+{% block title %}AI Agricultural Assistant – Apla Shetkari{% endblock %}
+
+{% block content %}
+<div class="chat-page-wrapper">
+    <div class="container">
+        <div class="chat-card-container">
+            <!-- Chat Header -->
+            <div class="chat-header">
+                <div class="chat-header-agent">
+                    <div class="chat-agent-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div>
+                        <div class="chat-agent-name">
+                            <span>Apla Shetkari AI</span>
+                            <span style="font-size: 13px; font-weight: normal; color: var(--harvest-gold);">(आपला कृषी सल्लागार)</span>
+                        </div>
+                        <div class="chat-status-indicator">
+                            <span class="pulse-dot"></span>
+                            <span>Online • Expert Agricultural Advisor</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-header-controls">
+                    <!-- Language Selection in Chat Header -->
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                        <i class="fas fa-language" style="color: var(--harvest-gold); font-size: 16px;"></i>
+                        <select id="chat-lang-select" class="chat-lang-select" aria-label="Chatbot Language">
+                            <option value="English">English</option>
+                            <option value="Hindi">हिंदी (Hindi)</option>
+                            <option value="Marathi" selected>मराठी (Marathi)</option>
+                        </select>
+                    </div>
+
+                    <!-- Clear Chat History Button -->
+                    <button id="clear-chat-btn" class="btn btn-secondary btn-sm" style="color: #ffffff !important; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25);" title="Clear Conversation">
+                        <i class="fas fa-trash-alt"></i> Clear Chat
+                    </button>
+                </div>
+            </div>
+
+            <!-- Suggested Farming Questions Chips Bar (Section 5) -->
+            <div class="suggested-questions-bar">
+                <span class="suggested-label"><i class="fas fa-bolt"></i> Popular Questions:</span>
+                <button type="button" class="suggestion-chip" data-question="Which crop should I grow in black soil?">
+                    🌱 Which crop for black soil?
+                </button>
+                <button type="button" class="suggestion-chip" data-question="What fertilizer is suitable for wheat?">
+                    🌾 Fertilizer for wheat?
+                </button>
+                <button type="button" class="suggestion-chip" data-question="My tomato plants have yellow leaves. What should I do?">
+                    🍅 Tomato yellow leaves remedy?
+                </button>
+                <button type="button" class="suggestion-chip" data-question="How can I increase the productivity of my farm?">
+                    📈 Increase farm productivity?
+                </button>
+                <button type="button" class="suggestion-chip" data-question="What is the best season to grow cotton?">
+                    🌿 Best season for cotton?
+                </button>
+                <button type="button" class="suggestion-chip" data-question="How much water does sugarcane require?">
+                    💧 Sugarcane water requirement?
+                </button>
+                <button type="button" class="suggestion-chip" data-question="How can I control pests in soybean crops?">
+                    🐛 Soybean pest control?
+                </button>
+            </div>
+
+            <!-- Chat Messages Scroll Container -->
+            <div id="chat-messages" class="chat-messages-container">
+                <!-- Initial Welcome Greeting -->
+                <div class="chat-message-row ai-row">
+                    <div class="chat-avatar-mini ai-avatar-mini">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-bubble">
+                        <p><strong>नमस्कार शेतकरी बंधूंनो! मी आपला शेतकरी AI सल्लागार आहे.</strong> 🌾</p>
+                        <p>मी आपल्या शेतातील पिके, खते, कीड नियंत्रण, मातीचे आरोग्य आणि सिंचनाशी संबंधित सर्व प्रश्नांची उत्तरे देण्यासाठी येथे आहे. आपण इंग्रजी, हिंदी किंवा मराठीत प्रश्न विचारू शकता.</p>
+                        <p style="font-size: 13px; color: var(--text-muted); margin-top: 6px;">
+                            💡 <em>खालील कोणत्याही सुचवलेल्या प्रश्नावर क्लिक करा किंवा खाली थेट आपला प्रश्न टाइप करा / बोला!</em>
+                        </p>
+                        <div class="message-meta">
+                            <span><i class="far fa-clock"></i> Just now</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Render Previous Chat History if logged in -->
+                {% if previous_history %}
+                    {% for item in previous_history %}
+                        <!-- User message -->
+                        <div class="chat-message-row user-row">
+                            <div class="chat-avatar-mini user-avatar-mini">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="message-bubble">
+                                <p>{{ item.user_message }}</p>
+                                <div class="message-meta">
+                                    <span>{{ item.timestamp }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI message -->
+                        <div class="chat-message-row ai-row">
+                            <div class="chat-avatar-mini ai-avatar-mini">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-bubble">
+                                <div class="ai-raw-history">{{ item.ai_response }}</div>
+                                <div class="message-meta">
+                                    <span><i class="far fa-clock"></i> {{ item.timestamp }}</span>
+                                    <button class="btn-copy-msg" onclick="copyMessageText(this)" title="Copy advice">
+                                        <i class="far fa-copy"></i> Copy
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <!-- Animated Typing Indicator (shown when waiting for AI) -->
+                <div id="typing-indicator" class="typing-indicator">
+                    <span style="font-size: 12.5px; color: var(--text-muted); margin-right: 6px;">
+                        <i class="fas fa-seedling" style="color: var(--primary-main);"></i> AI Advisor is preparing your guidance...
+                    </span>
+                    <span class="typing-dot"></span>
+                    <span class="typing-dot"></span>
+                    <span class="typing-dot"></span>
+                </div>
+            </div>
+
+            <!-- Chat Input Area -->
+            <div class="chat-input-wrapper">
+                <form id="chat-form" class="chat-input-form">
+                    <!-- Voice Input Button (Web Speech API) -->
+                    <button type="button" id="voice-input-btn" class="chat-voice-btn" title="Speak your question (Voice Input)">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+
+                    <!-- Text Input Field -->
+                    <input 
+                        type="text" 
+                        id="chat-input" 
+                        class="chat-input-field" 
+                        placeholder="शेतीसंबंधी कोणताही प्रश्न विचारा (उदा. गव्हासाठी खत, सोयाबीन कीड नियंत्रण)..." 
+                        autocomplete="off" 
+                        required
+                    >
+
+                    <!-- Send Button -->
+                    <button type="submit" id="chat-send-btn" class="chat-send-btn" title="Send Question">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // Format any raw history markdown on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.ai-raw-history').forEach(el => {
+            el.innerHTML = formatMarkdown(el.innerText);
+            el.classList.remove('ai-raw-history');
+        });
+
+        // If URL has query param ?q=..., populate and send automatically
+        const urlParams = new URLSearchParams(window.location.search);
+        const query = urlParams.get('q');
+        if (query) {
+            const input = document.getElementById('chat-input');
+            if (input) {
+                input.value = query;
+                const form = document.getElementById('chat-form');
+                if (form) {
+                    form.dispatchEvent(new Event('submit'));
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

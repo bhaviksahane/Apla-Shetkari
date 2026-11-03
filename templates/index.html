@@ -1,0 +1,319 @@
+{% extends 'base.html' %}
+
+{% block title %}Apla Shetkari – Smart Farming, Better Future{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-overlay-shapes"></div>
+    <div class="container hero-content">
+        <div class="hero-badge">
+            <i class="fas fa-leaf"></i> <span>Apla Shetkari – आपला शेतकरी</span>
+        </div>
+        
+        <h1 class="hero-title">
+            Your <span>Smart Farming</span> Partner
+        </h1>
+        
+        <p class="hero-subtitle">
+            Get instant AI-powered agricultural guidance and make smarter farming decisions.
+            Tailored for Indian soil types, regional climates, and farming seasons.
+        </p>
+
+        <div class="hero-actions">
+            <a href="{{ url_for('chat') }}" class="btn btn-gold btn-lg">
+                <i class="fas fa-robot"></i> Ask AI Assistant
+            </a>
+            <a href="{{ url_for('crop_recommendation') }}" class="btn btn-secondary btn-lg">
+                <i class="fas fa-wheat-awn"></i> Explore Crop Recommendations
+            </a>
+        </div>
+
+        <div class="hero-stats-bar">
+            <div class="hero-stat-item">
+                <i class="fas fa-clock hero-stat-icon"></i>
+                <span>24/7 AI Krishi Guidance</span>
+            </div>
+            <div class="hero-stat-item">
+                <i class="fas fa-language hero-stat-icon"></i>
+                <span>English, हिन्दी & मराठी</span>
+            </div>
+            <div class="hero-stat-item">
+                <i class="fas fa-map-marker-alt hero-stat-icon"></i>
+                <span>State & Soil Specific</span>
+            </div>
+            <div class="hero-stat-item">
+                <i class="fas fa-shield-halved hero-stat-icon"></i>
+                <span>Safe Farming Practices</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 6 Core Feature Cards Section -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Agricultural AI Solutions</span>
+            <h2 class="section-title">Everything You Need for Higher Yields</h2>
+            <p class="section-description">
+                Engineered specifically for Indian farmers to eliminate guesswork, protect crops from pests, and maximize farm profitability.
+            </p>
+        </div>
+
+        <div class="features-grid">
+            <!-- 1. AI Farming Assistant -->
+            <div class="feature-card">
+                <div class="feature-icon-box">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3 class="feature-card-title">1. AI Farming Assistant</h3>
+                <p class="feature-card-desc">
+                    Ask any farming question in Marathi, Hindi, or English. Receive instant, personalized agricultural guidance for your specific field problems.
+                </p>
+                <a href="{{ url_for('chat') }}" class="feature-card-link">
+                    Open Assistant <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- 2. Crop Recommendations -->
+            <div class="feature-card">
+                <div class="feature-icon-box">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h3 class="feature-card-title">2. Crop Recommendations</h3>
+                <p class="feature-card-desc">
+                    Enter your state, district, soil type, and water source to receive data-backed crop choices that thrive best in your agro-climatic conditions.
+                </p>
+                <a href="{{ url_for('crop_recommendation') }}" class="feature-card-link">
+                    Get Recommendations <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- 3. Disease Management -->
+            <div class="feature-card">
+                <div class="feature-icon-box">
+                    <i class="fas fa-bug"></i>
+                </div>
+                <h3 class="feature-card-title">3. Disease Management</h3>
+                <p class="feature-card-desc">
+                    Identify yellow leaves, fungal spots, wilt, and root rot early. Get organic and safe integrated pest management (IPM) protocols.
+                </p>
+                <a href="{{ url_for('chat') }}?q=How+can+I+control+pests+in+soybean+crops?" class="feature-card-link">
+                    Diagnose Symptoms <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- 4. Fertilizer Guidance -->
+            <div class="feature-card">
+                <div class="feature-icon-box">
+                    <i class="fas fa-flask"></i>
+                </div>
+                <h3 class="feature-card-title">4. Fertilizer Guidance</h3>
+                <p class="feature-card-desc">
+                    Calculate balanced NPK dosages, nano-urea application timings, organic compost preparation, and micronutrient corrections for your crops.
+                </p>
+                <a href="{{ url_for('chat') }}?q=What+fertilizer+is+suitable+for+wheat?" class="feature-card-link">
+                    View Fertilizer Advice <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- 5. Irrigation Suggestions -->
+            <div class="feature-card">
+                <div class="feature-icon-box">
+                    <i class="fas fa-droplet"></i>
+                </div>
+                <h3 class="feature-card-title">5. Irrigation Suggestions</h3>
+                <p class="feature-card-desc">
+                    Conserve water and avoid over-irrigation. Get drip, sprinkler, and flood irrigation intervals suited to your soil texture and crop stage.
+                </p>
+                <a href="{{ url_for('chat') }}?q=How+much+water+does+sugarcane+require?" class="feature-card-link">
+                    Explore Water Schedules <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- 6. Weather-Based Farming Tips -->
+            <div class="feature-card">
+                <div class="feature-icon-box">
+                    <i class="fas fa-cloud-sun-rain"></i>
+                </div>
+                <h3 class="feature-card-title">6. Weather-Based Farming Tips</h3>
+                <p class="feature-card-desc">
+                    Plan crucial farming activities like sowing, pesticide spraying, and harvesting according to seasonal monsoon forecasts and temperature swings.
+                </p>
+                <a href="{{ url_for('chat') }}?q=What+is+the+best+season+to+grow+cotton?" class="feature-card-link">
+                    Get Weather Tips <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Helpful Seasonal Farming Tips Section -->
+<section class="section section-alt">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Daily Krishi Gyan</span>
+            <h2 class="section-title">Helpful Seasonal Farming Tips</h2>
+            <p class="section-description">
+                Quick, actionable insights tested by Indian agricultural research stations for higher productivity.
+            </p>
+        </div>
+
+        <div class="tips-grid">
+            <div class="tip-card">
+                <div class="tip-badge-icon">
+                    <i class="fas fa-cloud-rain"></i>
+                </div>
+                <div class="tip-body">
+                    <h4>Kharif Season Advisory (खरीप हंगाम)</h4>
+                    <p>
+                        Always perform seed treatment with Trichoderma or Rhizobium before sowing soybean, cotton, or groundnut to prevent collar rot and wilt.
+                    </p>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-badge-icon">
+                    <i class="fas fa-snowflake"></i>
+                </div>
+                <div class="tip-body">
+                    <h4>Rabi Crop Nutrition (रब्बी हंगाम)</h4>
+                    <p>
+                        Apply nitrogen in 2-3 split doses for wheat and gram. Ensure the first irrigation at the Crown Root Initiation (CRI) stage (21 days).
+                    </p>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-badge-icon">
+                    <i class="fas fa-sun"></i>
+                </div>
+                <div class="tip-body">
+                    <h4>Summer & Drip Irrigation (उन्हाळी पिके)</h4>
+                    <p>
+                        Use organic mulching or plastic mulch in vegetable plots during summer to reduce soil moisture evaporation by up to 40%.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works (3 Steps) -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Simple & Accessible</span>
+            <h2 class="section-title">How Apla Shetkari Works</h2>
+            <p class="section-description">
+                Designed with utmost simplicity so every farmer can use it effortlessly.
+            </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; text-align: center;">
+            <div style="background: #ffffff; padding: 34px 24px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+                <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--primary-mint); color: var(--primary-dark); font-weight: 800; font-size: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px;">
+                    1
+                </div>
+                <h3 style="font-size: 18px; margin-bottom: 8px;">Select Your Language</h3>
+                <p style="font-size: 14px; color: var(--text-muted);">
+                    Choose English, Hindi, or Marathi. You can also use voice input to speak questions naturally.
+                </p>
+            </div>
+
+            <div style="background: #ffffff; padding: 34px 24px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+                <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--primary-mint); color: var(--primary-dark); font-weight: 800; font-size: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px;">
+                    2
+                </div>
+                <h3 style="font-size: 18px; margin-bottom: 8px;">Ask or Input Farm Data</h3>
+                <p style="font-size: 14px; color: var(--text-muted);">
+                    Type a question about pests, fertilizers, or enter your soil and district for crop recommendations.
+                </p>
+            </div>
+
+            <div style="background: #ffffff; padding: 34px 24px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+                <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--primary-mint); color: var(--primary-dark); font-weight: 800; font-size: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px;">
+                    3
+                </div>
+                <h3 style="font-size: 18px; margin-bottom: 8px;">Receive Scientific Advice</h3>
+                <p style="font-size: 14px; color: var(--text-muted);">
+                    Get easy step-by-step guidance, duration, water needs, and safe IPM practices instantly.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section on Homepage -->
+<section class="section section-alt">
+    <div class="container">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+            <div>
+                <span class="section-tag">About Our Initiative</span>
+                <h2 class="section-title">Empowering the Backbone of India</h2>
+                <p style="margin-bottom: 16px; color: var(--text-muted); font-size: 15px;">
+                    <strong>Apla Shetkari (आपला शेतकरी)</strong> was born out of a deep respect for Indian farmers. While agricultural research in institutes like ICAR and regional Agricultural Universities produces tremendous insights, farmers on the ground often lack timely, personalized access to this information.
+                </p>
+                <p style="margin-bottom: 22px; color: var(--text-muted); font-size: 15px;">
+                    By leveraging state-of-the-art Artificial Intelligence and deep understanding of Indian agro-climatic conditions, Apla Shetkari provides 24x7 guidance in farmers' regional languages, helping them cut input costs, prevent crop losses, and achieve sustainable prosperity.
+                </p>
+                <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+                    <a href="{{ url_for('about') }}" class="btn btn-primary">
+                        Read Full Story <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="{{ url_for('register') }}" class="btn btn-secondary">
+                        Create Free Account
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <div style="background: #ffffff; padding: 30px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-md);">
+                    <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 20px;">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--primary-mint); display: flex; align-items: center; justify-content: center; color: var(--primary-dark); font-size: 22px;">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 18px; color: var(--primary-dark);">Our Core Principles</h4>
+                            <span style="font-size: 13px; color: var(--text-muted);">Responsible & Scientific Agronomy</span>
+                        </div>
+                    </div>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 14.5px;">
+                        <li style="display: flex; gap: 10px; align-items: flex-start;">
+                            <i class="fas fa-check-circle" style="color: var(--primary-main); margin-top: 4px;"></i>
+                            <span><strong>No guesswork:</strong> Safe recommendations aligned with agricultural extension standards.</span>
+                        </li>
+                        <li style="display: flex; gap: 10px; align-items: flex-start;">
+                            <i class="fas fa-check-circle" style="color: var(--primary-main); margin-top: 4px;"></i>
+                            <span><strong>Regional sensitivity:</strong> Adapts to soil textures (Black Cotton, Alluvial, Red) and water levels.</span>
+                        </li>
+                        <li style="display: flex; gap: 10px; align-items: flex-start;">
+                            <i class="fas fa-check-circle" style="color: var(--primary-main); margin-top: 4px;"></i>
+                            <span><strong>Multilingual accessibility:</strong> Speaks Marathi, Hindi, and English fluently.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Banner -->
+<section style="background: linear-gradient(135deg, var(--primary-dark), var(--primary-main)); color: #ffffff; padding: 60px 0; text-align: center;">
+    <div class="container">
+        <h2 style="color: #ffffff; font-size: 32px; margin-bottom: 12px;">Ready to Transform Your Farming?</h2>
+        <p style="color: #d8f3dc; max-width: 650px; margin: 0 auto 26px; font-size: 16px;">
+            Join thousands of smart farmers taking advantage of instant AI agricultural guidance today.
+        </p>
+        <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+            <a href="{{ url_for('chat') }}" class="btn btn-gold btn-lg">
+                <i class="fas fa-comments"></i> Start AI Chatbot
+            </a>
+            <a href="{{ url_for('crop_recommendation') }}" class="btn btn-secondary btn-lg">
+                <i class="fas fa-leaf"></i> Find Suitable Crops
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

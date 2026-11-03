@@ -1,0 +1,269 @@
+{% extends 'base.html' %}
+
+{% block title %}AI Crop Recommendation System – Apla Shetkari{% endblock %}
+
+{% block content %}
+<div class="section" style="padding-top: 36px;">
+    <div class="container">
+        <!-- Page Title & Header -->
+        <div class="section-header" style="margin-bottom: 36px;">
+            <span class="section-tag">Precision Agro-Intelligence</span>
+            <h1 class="section-title">Smart Crop Recommendations</h1>
+            <p class="section-description">
+                Enter your agricultural land details below. Our AI Agronomist evaluates your soil characteristics, seasonal temperature, rainfall patterns, and water accessibility to recommend the most profitable, high-yielding crops.
+            </p>
+        </div>
+
+        <!-- Form Card -->
+        <div class="form-card">
+            <form id="crop-recommendation-form" method="POST" action="{{ url_for('crop_recommendation') }}">
+                <div class="form-grid-3">
+                    <!-- State -->
+                    <div class="form-group">
+                        <label class="form-label" for="state">
+                            <i class="fas fa-map-marked-alt" style="color: var(--primary-main);"></i> State (राज्य) *
+                        </label>
+                        <select name="state" id="state" class="form-control" required>
+                            <option value="">-- Select State --</option>
+                            <option value="Maharashtra" {% if form_data.state == 'Maharashtra' or not form_data.state %}selected{% endif %}>Maharashtra (महाराष्ट्र)</option>
+                            <option value="Madhya Pradesh" {% if form_data.state == 'Madhya Pradesh' %}selected{% endif %}>Madhya Pradesh (मध्य प्रदेश)</option>
+                            <option value="Gujarat" {% if form_data.state == 'Gujarat' %}selected{% endif %}>Gujarat (गुजरात)</option>
+                            <option value="Karnataka" {% if form_data.state == 'Karnataka' %}selected{% endif %}>Karnataka (कर्नाटक)</option>
+                            <option value="Punjab" {% if form_data.state == 'Punjab' %}selected{% endif %}>Punjab (पंजाब)</option>
+                            <option value="Haryana" {% if form_data.state == 'Haryana' %}selected{% endif %}>Haryana (हरियाणा)</option>
+                            <option value="Uttar Pradesh" {% if form_data.state == 'Uttar Pradesh' %}selected{% endif %}>Uttar Pradesh (उत्तर प्रदेश)</option>
+                            <option value="Rajasthan" {% if form_data.state == 'Rajasthan' %}selected{% endif %}>Rajasthan (राजस्थान)</option>
+                            <option value="Andhra Pradesh" {% if form_data.state == 'Andhra Pradesh' %}selected{% endif %}>Andhra Pradesh (आंध्र प्रदेश)</option>
+                            <option value="Telangana" {% if form_data.state == 'Telangana' %}selected{% endif %}>Telangana (तेलंगाना)</option>
+                            <option value="Tamil Nadu" {% if form_data.state == 'Tamil Nadu' %}selected{% endif %}>Tamil Nadu (तमिलनाडु)</option>
+                            <option value="Bihar" {% if form_data.state == 'Bihar' %}selected{% endif %}>Bihar (बिहार)</option>
+                            <option value="West Bengal" {% if form_data.state == 'West Bengal' %}selected{% endif %}>West Bengal (पश्चिम बंगाल)</option>
+                            <option value="Odisha" {% if form_data.state == 'Odisha' %}selected{% endif %}>Odisha (ओडिशा)</option>
+                            <option value="Chhattisgarh" {% if form_data.state == 'Chhattisgarh' %}selected{% endif %}>Chhattisgarh (छत्तीसगढ़)</option>
+                        </select>
+                    </div>
+
+                    <!-- District -->
+                    <div class="form-group">
+                        <label class="form-label" for="district">
+                            <i class="fas fa-city" style="color: var(--primary-main);"></i> District (जिल्हा) *
+                        </label>
+                        <input 
+                            type="text" 
+                            name="district" 
+                            id="district" 
+                            class="form-control" 
+                            placeholder="e.g. Pune, Nashik, Nagpur, Indore" 
+                            value="{{ form_data.district or '' }}" 
+                            required
+                        >
+                    </div>
+
+                    <!-- Soil Type -->
+                    <div class="form-group">
+                        <label class="form-label" for="soil_type">
+                            <i class="fas fa-mountain" style="color: var(--primary-main);"></i> Soil Type (मातीचा प्रकार) *
+                        </label>
+                        <select name="soil_type" id="soil_type" class="form-control" required>
+                            <option value="">-- Select Soil Type --</option>
+                            <option value="Black Cotton Soil (काळी कापसाची माती / Regur)" {% if 'Black' in (form_data.soil_type or '') %}selected{% endif %}>Black Cotton Soil (काळी रेगूर माती)</option>
+                            <option value="Alluvial Soil (गाळाची माती)" {% if 'Alluvial' in (form_data.soil_type or '') %}selected{% endif %}>Alluvial Soil (गाळाची माती)</option>
+                            <option value="Red Soil (तांबडी माती)" {% if 'Red' in (form_data.soil_type or '') %}selected{% endif %}>Red Soil (तांबडी माती)</option>
+                            <option value="Laterite Soil (जांभी माती)" {% if 'Laterite' in (form_data.soil_type or '') %}selected{% endif %}>Laterite Soil (जांभी माती)</option>
+                            <option value="Sandy Loam (वालुकामय पोयटा)" {% if 'Sandy' in (form_data.soil_type or '') %}selected{% endif %}>Sandy Loam (वालुकामय पोयटा)</option>
+                            <option value="Clayey Loam (चिकणमाती)" {% if 'Clay' in (form_data.soil_type or '') %}selected{% endif %}>Clayey Loam (चिकणमाती)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-grid-3">
+                    <!-- Land Area -->
+                    <div class="form-group">
+                        <label class="form-label" for="land_area">
+                            <i class="fas fa-chart-area" style="color: var(--primary-main);"></i> Land Area (जमीन क्षेत्र) *
+                        </label>
+                        <input 
+                            type="text" 
+                            name="land_area" 
+                            id="land_area" 
+                            class="form-control" 
+                            placeholder="e.g. 2 Acres, 1 Hectare, 20 Gunthe" 
+                            value="{{ form_data.land_area or '2 Acres' }}" 
+                            required
+                        >
+                    </div>
+
+                    <!-- Season -->
+                    <div class="form-group">
+                        <label class="form-label" for="season">
+                            <i class="fas fa-calendar-alt" style="color: var(--primary-main);"></i> Sowing Season (हंगाम) *
+                        </label>
+                        <select name="season" id="season" class="form-control" required>
+                            <option value="">-- Select Sowing Season --</option>
+                            <option value="Kharif (Monsoon / जून ते ऑक्टोबर)" {% if 'Kharif' in (form_data.season or '') or not form_data.season %}selected{% endif %}>Kharif Season (खरीप - जून ते ऑक्टोबर)</option>
+                            <option value="Rabi (Winter / ऑक्टोबर ते मार्च)" {% if 'Rabi' in (form_data.season or '') %}selected{% endif %}>Rabi Season (रब्बी - ऑक्टोबर ते मार्च)</option>
+                            <option value="Zaid (Summer / मार्च ते जून)" {% if 'Zaid' in (form_data.season or '') %}selected{% endif %}>Zaid / Summer Season (उन्हाळी - मार्च ते जून)</option>
+                        </select>
+                    </div>
+
+                    <!-- Water Availability -->
+                    <div class="form-group">
+                        <label class="form-label" for="water_availability">
+                            <i class="fas fa-faucet-drip" style="color: var(--primary-main);"></i> Water Availability (पाण्याची उपलब्धता) *
+                        </label>
+                        <select name="water_availability" id="water_availability" class="form-control" required>
+                            <option value="">-- Select Water Source --</option>
+                            <option value="Abundant (Canal / River / Perennial Well)" {% if 'Abundant' in (form_data.water_availability or '') %}selected{% endif %}>Abundant (कॅनॉल / बारमाही विहीर / मुबलक)</option>
+                            <option value="Moderate (Borewell / Seasonal Well / Drip)" {% if 'Moderate' in (form_data.water_availability or '') or not form_data.water_availability %}selected{% endif %}>Moderate (बोअरवेल / ठिबक सिंचन / मध्यम)</option>
+                            <option value="Low / Rainfed Only (कोरडवाहू / केवळ पावसावर अवलंबून)" {% if 'Low' in (form_data.water_availability or '') %}selected{% endif %}>Low / Rainfed Only (कोरडवाहू / पावसाचे पाणी)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-grid-2">
+                    <!-- Previous Crop (Optional) -->
+                    <div class="form-group">
+                        <label class="form-label" for="previous_crop">
+                            <i class="fas fa-history" style="color: var(--primary-main);"></i> Previous Crop Grown (मागील पीक - ऐच्छिक)
+                        </label>
+                        <input 
+                            type="text" 
+                            name="previous_crop" 
+                            id="previous_crop" 
+                            class="form-control" 
+                            placeholder="e.g. Sugarcane, Cotton, Soybean, Fallow" 
+                            value="{{ form_data.previous_crop or '' }}"
+                        >
+                    </div>
+
+                    <!-- Language Selection for Results -->
+                    <div class="form-group">
+                        <label class="form-label" for="language">
+                            <i class="fas fa-language" style="color: var(--primary-main);"></i> Advisory Language (माहितीची भाषा)
+                        </label>
+                        <select name="language" id="language" class="form-control">
+                            <option value="English" {% if form_data.language == 'English' %}selected{% endif %}>English</option>
+                            <option value="Hindi" {% if form_data.language == 'Hindi' %}selected{% endif %}>हिंदी (Hindi)</option>
+                            <option value="Marathi" {% if form_data.language == 'Marathi' or not form_data.language %}selected{% endif %}>मराठी (Marathi)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Form Submit Button -->
+                <div style="margin-top: 24px; text-align: center;">
+                    <button type="submit" class="btn btn-primary btn-lg" style="min-width: 280px;">
+                        <i class="fas fa-wand-magic-sparkles"></i> Generate Crop Recommendations
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Animated Loading State (hidden initially) -->
+        <div id="crop-loading-state" style="display: none; margin: 40px auto; max-width: 600px; text-align: center; background: #ffffff; padding: 40px; border-radius: var(--radius-lg); border: 1.5px solid var(--border-color); box-shadow: var(--shadow-md);">
+            <div style="font-size: 42px; color: var(--primary-main); margin-bottom: 16px;">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
+            <h3 style="font-size: 20px; color: var(--primary-dark); margin-bottom: 8px;">Analyzing Agro-Climatic Parameters...</h3>
+            <p style="color: var(--text-muted); font-size: 14.5px;">
+                Apla Shetkari AI is evaluating soil fertility, temperature windows, water requirements, and crop disease resistance. This takes just a few seconds.
+            </p>
+        </div>
+
+        <!-- Results Section (Rendered when results are returned) -->
+        {% if results %}
+        <div id="crop-results-container" style="margin-top: 50px;">
+            <div class="crop-results-header">
+                <div>
+                    <h2 style="font-size: 26px; color: var(--primary-dark);">
+                        <i class="fas fa-check-circle" style="color: var(--primary-main);"></i> Recommended Crops for Your Farm
+                    </h2>
+                    <p class="text-muted" style="font-size: 14.5px;">
+                        Location: <strong>{{ form_data.district }}, {{ form_data.state }}</strong> | Soil: <strong>{{ form_data.soil_type }}</strong> | Season: <strong>{{ form_data.season }}</strong>
+                    </p>
+                </div>
+
+                <div>
+                    <button onclick="window.print()" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-print"></i> Print Advisory
+                    </button>
+                    {% if current_user %}
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-bookmark"></i> View Saved in Dashboard
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="crop-cards-grid">
+                {% for crop in results %}
+                <div class="crop-card">
+                    <div class="crop-card-header">
+                        <div>
+                            <div class="crop-card-title">
+                                <i class="fas fa-leaf" style="color: var(--primary-main); font-size: 18px;"></i>
+                                <span>{{ crop.crop_name }}</span>
+                            </div>
+                            {% if crop.suitability_reason %}
+                            <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">
+                                {{ crop.suitability_reason }}
+                            </p>
+                            {% endif %}
+                        </div>
+                        <span class="crop-badge-season">{{ crop.growing_season.split('(')[0] }}</span>
+                    </div>
+
+                    <div class="crop-card-body">
+                        <!-- Soil -->
+                        <div class="crop-info-row">
+                            <span class="crop-info-label"><i class="fas fa-mountain"></i> Suitable Soil:</span>
+                            <span class="crop-info-value">{{ crop.suitable_soil }}</span>
+                        </div>
+
+                        <!-- Season & Sowing Window -->
+                        <div class="crop-info-row">
+                            <span class="crop-info-label"><i class="fas fa-calendar-check"></i> Sowing Window:</span>
+                            <span class="crop-info-value">{{ crop.growing_season }}</span>
+                        </div>
+
+                        <!-- Duration -->
+                        <div class="crop-info-row">
+                            <span class="crop-info-label"><i class="fas fa-hourglass-half"></i> Growing Duration:</span>
+                            <span class="crop-info-value" style="font-weight: 700; color: var(--primary-dark);">{{ crop.expected_duration }}</span>
+                        </div>
+
+                        <!-- Water Requirements -->
+                        <div class="crop-info-row">
+                            <span class="crop-info-label"><i class="fas fa-droplet"></i> Water Needs:</span>
+                            <span class="crop-info-value">{{ crop.water_requirement }}</span>
+                        </div>
+
+                        <!-- Cultivation Tips -->
+                        <div class="crop-info-row">
+                            <span class="crop-info-label"><i class="fas fa-seedling"></i> Cultivation Tips:</span>
+                            <span class="crop-info-value">{{ crop.cultivation_tips }}</span>
+                        </div>
+
+                        <!-- Yield & Market -->
+                        <div class="crop-info-row">
+                            <span class="crop-info-label"><i class="fas fa-chart-line"></i> Yield & Market:</span>
+                            <span class="crop-info-value">{{ crop.estimated_yield_market }}</span>
+                        </div>
+
+                        <!-- Pest Alert -->
+                        {% if crop.pest_disease_alert %}
+                        <div class="crop-alert-box">
+                            <i class="fas fa-shield-virus" style="margin-top: 2px;"></i>
+                            <div>
+                                <strong>Pest/Disease Alert:</strong> {{ crop.pest_disease_alert }}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
